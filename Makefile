@@ -1,0 +1,37 @@
+V=1
+SOURCE_DIR=src
+BUILD_DIR=build
+IMAGES_DIR=$(SOURCE_DIR)/images
+IMAGE_FILES:=$(wildcard $(IMAGES_DIR)/*.png)
+SPRITES_DIR=$(SOURCE_DIR)/filesystem
+SPRITE_FILES=$(subst images,filesystem,$(IMAGE_FILES:.png=.sprite))
+N64_MKDFS_ROOT=$(SOURCE_DIR)/filesystem
+
+include $(N64_INST)/include/n64.mk
+
+all: hello.z64
+.PHONY: all
+
+$(BUILD_DIR)/hello.dfs: $(wildcard $(SOURCE_DIR)/filesystem/*)
+
+OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/jello.o
+
+$(SPRITE_FILES): $(IMAGE_FILES)
+
+$(SPRITES_DIR)/%.sprite: $(IMAGES_DIR)/%.png
+	@mkdir -p $(SPRITES_DIR)
+	@echo "Processing file for $@:" $(notdir $(subst sprite,png,$@))
+	mksprite 32 $(IMAGES_DIR)/$(notdir $(subst sprite,png,$@)) $@
+
+hello.z64: $(SPRITE_FILES)
+hello.z64: N64_ROM_TITLE="Hello World"
+hello.z64: $(BUILD_DIR)/hello.dfs
+
+
+$(BUILD_DIR)/hello.elf: $(OBJS)
+
+clean:
+	rm -f $(BUILD_DIR)/* *.z64
+.PHONY: clean
+
+-include $(wildcard $(BUILD_DIR)/*.d)

@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <libdragon.h>
+#include "jello.h"
+
+int main(void)
+{
+     console_init();
+
+    debug_init_usblog();
+    console_set_debug(true);
+
+    printf("Hello world!\n");
+    jello_func();
+    const resolution_t RESOLUTION_240x180 = {240, 180, false};
+     /* comment*/
+     static display_context_t disp;
+     display_init(RESOLUTION_240x180, DEPTH_32_BPP, 2, GAMMA_NONE, FILTERS_RESAMPLE);
+     // Initialise the DFS to its default location
+     dfs_init(DFS_DEFAULT_LOCATION);
+     while(1){ 
+		// Get the file handle for our sprite
+		int fp = dfs_open("/background.sprite");
+		// Allocate a buffer for our file
+		sprite_t *squid = malloc(dfs_size(fp));
+		// Load the sprite into the buffer
+		dfs_read(squid, 1, dfs_size(fp), fp);
+		// Reading is complete, close the file
+		dfs_close(fp);
+
+		while(!(disp = display_lock()));
+		int screen_width = display_get_width();
+int screen_height = display_get_height();
+
+// Calculate the center coordinates (top-left corner for drawing)
+int center_x = (screen_width / 2) - (squid->width / 2);
+int center_y = (screen_height / 2) - (squid->height / 2);
+      		graphics_draw_box(disp, 20, 20, 280, 200, graphics_make_color(199, 171, 215, 255));
+		// Draw the sprite onto the frame buffer
+		graphics_draw_sprite_trans(disp, center_x, center_y, squid);
+		display_show(disp);
+		/* comment */}
+    while(1) {}
+}

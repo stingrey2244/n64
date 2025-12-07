@@ -34,8 +34,8 @@ int main(void){
     dfs_init(DFS_DEFAULT_LOCATION);
  
 	const char *files[] = {
-        "/start_screen.sprite",
-        // "/chars.sprite",
+        "/startScreen_1_2.sprite",
+        "/chars.sprite"
         // "/char_arrows.sprite",
 		// "/char_bases.sprite"
     };
@@ -102,9 +102,7 @@ void draw_start_screen(display_context_t disp, sprite_t **sprites){
 
      graphics_draw_sprite_trans_stride(
          disp,
-        100, 100,
-      sprites[0], start_screen_frame
- );
+        0, 0, sprites[0], start_screen_frame);
 }
 
 //=============== CHOSE SPRITE CODE ==========================

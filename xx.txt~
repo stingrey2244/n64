@@ -1,0 +1,3 @@
+sed 's/^.*_\([0-9]*\)_\([0-9]*\)\.png$/\1 \2/'
+sed 's/^.*_\([0-9]*\)_\([0-9]*\)\.png$/\2/'
+[MacBook-Air-819: ~/n64] $ echo "lots_of_underscores_13_99.png" |[A[A

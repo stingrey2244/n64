@@ -35,8 +35,8 @@ int main(void){
  
 	const char *files[] = {
         "/startScreen_1_2.sprite",
-        "/chars.sprite"
-        // "/char_arrows.sprite",
+        "/chars.sprite",
+         "/lizzieTops_3_2.sprite"
 		// "/char_bases.sprite"
     };
 
@@ -102,7 +102,7 @@ void draw_start_screen(display_context_t disp, sprite_t **sprites){
 
      graphics_draw_sprite_trans_stride(
          disp,
-        0, 0, sprites[0], start_screen_frame);
+        0, 0, sprites[2], start_screen_frame);
 }
 
 //=============== CHOSE SPRITE CODE ==========================
@@ -110,9 +110,11 @@ void update_choose_sprite(joypad_inputs_t input){
 	current_stage = CHOOSE_SPRITE;
 }
 void draw_choose_sprite(display_context_t disp, sprite_t **sprites){
-	// int cx = (display_get_width() - sprites[0]->width) / 2;
-	// int cy = (display_get_height() - sprites[0]->height) / 2;
-	// graphics_draw_sprite_trans(disp, cx, cy, sprites[2]);
+	//  int cx = (display_get_width() - sprites[0]->width) / 2;
+	//  int cy = (display_get_height() - sprites[0]->height) / 2;
+	//     graphics_draw_sprite_trans_stride(
+    //      disp,
+    //     0, 0, sprites[0], 2);
 	// graphics_draw_sprite_trans(disp, 172, 98, sprites[3]);
 }
 

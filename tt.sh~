@@ -1,0 +1,2 @@
+fn="zoepants_2_3.png"
+hs=`echo ${fn} | sed 's/^.*_\([0-9]*\)_\([0-9]*\)\.png$/\1/'`

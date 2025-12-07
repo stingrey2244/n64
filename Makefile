@@ -20,8 +20,10 @@ $(SPRITE_FILES): $(IMAGE_FILES)
 
 $(SPRITES_DIR)/%.sprite: $(IMAGES_DIR)/%.png
 	@mkdir -p $(SPRITES_DIR)
-	@echo "Processing file for $@:" $(notdir $(subst sprite,png,$@))
-	mksprite 32 1 2 $(IMAGES_DIR)/$(notdir $(subst sprite,png,$@)) $@
+	echo "Processing file for $@:" $(notdir $(subst sprite,png,$@))
+	hs=`echo $(notdir $(subst sprite,png,$@)) | sed 's/^.*_\([0-9]*\)_\([0-9]*\)\.png$$/\1/'` ; \
+	vs=`echo $(notdir $(subst sprite,png,$@)) | sed 's/^.*_\([0-9]*\)_\([0-9]*\)\.png$$/\2/'` ; \
+	mksprite 32 $${hs} $${vs} $(IMAGES_DIR)/$(notdir $(subst sprite,png,$@)) $@
 
 hello.z64: $(SPRITE_FILES)
 hello.z64: N64_ROM_TITLE="Hello World"

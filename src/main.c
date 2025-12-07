@@ -34,9 +34,10 @@ int main(void){
     dfs_init(DFS_DEFAULT_LOCATION);
  
 	const char *files[] = {
-        "/startScreen1.sprite",
-        "/startScreen2.sprite",
-        "/background.sprite"
+        "/start_screen.sprite",
+        // "/chars.sprite",
+        // "/char_arrows.sprite",
+		// "/char_bases.sprite"
     };
 
     const int NUM_SPRITES = sizeof(files) / sizeof(files[0]);
@@ -56,7 +57,7 @@ int main(void){
     }
 
     display_context_t disp;
-
+	int i = 0;
     while (1){
 		while (!(disp = display_lock()));
 
@@ -87,24 +88,34 @@ void update_start_screen(joypad_inputs_t input){
 		current_stage = CHOOSE_SPRITE;
 	}
 }
+
+int start_screen_frame = 0;
+
 void draw_start_screen(display_context_t disp, sprite_t **sprites){
+	graphics_fill_screen(disp, graphics_make_color (199, 171, 215, 255));
+
 	uint32_t now = get_ticks();
 	if (now - last_switch > TICKS_FROM_MS(1000)) {
-		current = (current == 0) ? 1 : 0;
+		start_screen_frame = (start_screen_frame == 0) ? 1 : 0;
 		last_switch = now;
 	}
-	int cx = (display_get_width() - sprites[current]->width) / 2;
-	int cy = (display_get_height() - sprites[current]->height) / 2;
-	graphics_draw_sprite_trans(disp, cx, cy, sprites[current]);
-}
 
+     graphics_draw_sprite_trans_stride(
+         disp,
+        100, 100,
+      sprites[0], start_screen_frame
+ );
+}
 
 //=============== CHOSE SPRITE CODE ==========================
 void update_choose_sprite(joypad_inputs_t input){
-
+	current_stage = CHOOSE_SPRITE;
 }
 void draw_choose_sprite(display_context_t disp, sprite_t **sprites){
-	debugf((char *)0x1);
+	// int cx = (display_get_width() - sprites[0]->width) / 2;
+	// int cy = (display_get_height() - sprites[0]->height) / 2;
+	// graphics_draw_sprite_trans(disp, cx, cy, sprites[2]);
+	// graphics_draw_sprite_trans(disp, 172, 98, sprites[3]);
 }
 
 //=============== DRESS UP CODE ==========================

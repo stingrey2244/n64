@@ -21,7 +21,7 @@ $(SPRITE_FILES): $(IMAGE_FILES)
 $(SPRITES_DIR)/%.sprite: $(IMAGES_DIR)/%.png
 	@mkdir -p $(SPRITES_DIR)
 	@echo "Processing file for $@:" $(notdir $(subst sprite,png,$@))
-	mksprite 32 $(IMAGES_DIR)/$(notdir $(subst sprite,png,$@)) $@
+#mksprite 32 $(IMAGES_DIR)/$(notdir $(subst sprite,png,$@)) $@
 
 hello.z64: $(SPRITE_FILES)
 hello.z64: N64_ROM_TITLE="Hello World"

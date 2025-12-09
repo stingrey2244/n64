@@ -226,10 +226,17 @@ void dress_up(display_context_t disp, enum Stage curr_stage){
 	if (curr_stage == SHOW_FINAL){
 		x = 71;
 	}
-	for (int i = 3; i >= 0; i--){
+	bool tights = character.name == REY && character.curr_outfit[1] == 2 && character.curr_outfit[2] != -1;
+	for (int i = 2; i >= 0; i--){
 		if (character.curr_outfit[i] != -1) {
 			graphics_draw_sprite_trans_stride(disp, x, 0, character.clothes[i], character.curr_outfit[i]);
 		}
+	}
+	if (character.curr_outfit[3] != -1) {
+		graphics_draw_sprite_trans_stride(disp, x, 0, character.clothes[3], character.curr_outfit[3]);
+	} 
+	if(tights){
+		graphics_draw_sprite_trans_stride(disp, x, 0, character.clothes[2], character.curr_outfit[2]);
 	}
 }
 void update_start_screen(joypad_inputs_t input);
@@ -429,7 +436,6 @@ void update_show_final(joypad_inputs_t input){
 		a_release = false;
 		curr_clothes_select = 0;
 		hover = ZOE;
-		character.name = UNSET;
 		for (int i = 0; i < 4; i++)
 			character.curr_outfit[i] = -1;
 		character.clothes = NULL;

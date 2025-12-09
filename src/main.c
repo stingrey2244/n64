@@ -354,6 +354,8 @@ void draw_choose_sprite(display_context_t disp, joypad_inputs_t input){
 		graphics_draw_sprite_trans_stride(disp, 0, 0, choose[1], 0);
 		if (input.btn.d_right) {
 			hover = REY;
+		} else if (input.btn.d_left) {
+			hover = LIZZIE;
 		}
 	} else if (hover == REY){
 		graphics_draw_sprite_trans_stride(disp, 0, 0, choose[1], 1);
@@ -366,8 +368,11 @@ void draw_choose_sprite(display_context_t disp, joypad_inputs_t input){
 		graphics_draw_sprite_trans_stride(disp, 0, 0, choose[1], 2);
 		if (input.btn.d_left) {
 			hover = REY;
+		} else if (input.btn.d_right) {
+			hover = ZOE;
 		}
 	}
+
 }
 
 //=============== DRESS UP CODE ==========================
@@ -404,6 +409,10 @@ void draw_dress_up(display_context_t disp, joypad_inputs_t input){
 			arrow ++;
 	} else if (input.btn.d_up && arrow > 0) {
 			arrow --;
+	} else if (input.btn.d_up && arrow == 0) {
+			arrow = 5;
+	} else if (input.btn.d_down && arrow == 5) {
+			arrow = 0;
 	}
 	if (arrow < 4 && input.btn.a && a_release) {
 		curr_clothes_select = 0;
